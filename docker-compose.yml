@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  movieservice:
+    build:
+      context: ./movieservice
+    image: movieservice:latest
+    container_name: movieservice
+    ports:
+      - "8080:8080"
+    depends_on:
+      - seatservice
+      - cacheservice
+    networks:
+      - app-network
+
+  seatservice:
+    build:
+      context: ./seatservice
+    image: seatservice:latest
+    container_name: seatservice
+    ports:
+      - "8081:8081"
+    depends_on:
+      - cacheservice
+    networks:
+      - app-network
+
+  cacheservice:
+    build:
+      context: ./cacheservice
+    image: cacheservice:latest
+    container_name: cacheservice
+    ports:
+      - "8084:8084"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+

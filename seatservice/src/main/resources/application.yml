@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: seat-service
+server:
+  port: 8081
