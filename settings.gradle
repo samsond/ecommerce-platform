@@ -6,5 +6,5 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
-rootProject.name = 'movie-reservation'
-include('movieservice', 'seatservice', 'cacheservice')
+rootProject.name = 'ecommerce-platform'
+include('product-service', 'order-service', 'cache-service')
