@@ -36,5 +36,11 @@ public class ProductController implements ProductResources {
         return ResponseEntity.ok(products);
     }
 
+    @Override
+    public ResponseEntity<List<ProductDTO>> getProductsByName(String name) {
+        List<ProductDTO> products = productService.getProductsByName(name);
+        return ResponseEntity.ok(products);
+    }
+
 
 }

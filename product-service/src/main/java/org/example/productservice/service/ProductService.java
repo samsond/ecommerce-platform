@@ -1,5 +1,7 @@
 package org.example.productservice.service;
 
+import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Timer;
 import org.example.productservice.dto.ProductDTO;
 import org.example.productservice.exception.ProductNotFoundException;
 import org.example.productservice.mapper.ProductMapper;
@@ -17,9 +19,12 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper mapper;
 
-    public ProductService(final ProductRepository productRepository, final ProductMapper mapper) {
+    private final Timer productFetchTimer;
+
+    public ProductService(final ProductRepository productRepository, final ProductMapper mapper, Timer productFetchTimer) {
         this.productRepository = productRepository;
         this.mapper = mapper;
+        this.productFetchTimer = productFetchTimer;
     }
 
     public ProductDTO getProductById(Long id) {
@@ -29,9 +34,22 @@ public class ProductService {
     }
 
     public List<ProductDTO> getProductsByCategory(String categoryName) {
+        Timer.Sample sample = Timer.start(Metrics.globalRegistry);
         List<Product> products = productRepository.findByCategoryName(categoryName);
+        sample.stop(productFetchTimer);
         return products.stream()
                 .map(mapper::convert)
                 .collect(Collectors.toList());
     }
+
+    public List<ProductDTO> getProductsByName(String name) {
+        Timer.Sample sample = Timer.start(Metrics.globalRegistry);
+        List<Product> products = productRepository.findByNameContaining(name);
+        sample.stop(productFetchTimer);
+        return products.stream()
+                .map(mapper::convert)
+                .collect(Collectors.toList());
+    }
+
+
 }

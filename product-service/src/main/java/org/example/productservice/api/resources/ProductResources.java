@@ -79,7 +79,38 @@ public interface ProductResources {
                     description = "Internal server error"
             )
     })
-    @GetMapping(value = "/products/category/{categoryName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/products/categories/{categoryName}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable String categoryName);
+
+    @Operation(
+            summary = "Fetch products by name",
+            description = "Retrieve a list of products filtered by name",
+            parameters = {
+                    @Parameter(
+                            name = "name",
+                            in = ParameterIn.PATH,
+                            description = "The name of the product to filter by",
+                            required = true,
+                            example = "Laptop"
+                    )
+            }
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "List of products fetched successfully",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = ProductDTO.class)))
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No products found for the given name"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error"
+            )
+    })
+    @GetMapping(value = "/products/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<ProductDTO>> getProductsByName(@PathVariable String name);
 
 }
