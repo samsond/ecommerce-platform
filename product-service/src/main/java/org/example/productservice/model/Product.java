@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,5 +22,14 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
+
+    @Column(name = "updated_at",nullable = false, updatable = true)
+    private Instant lastUpdated;
+
+    @PrePersist
+    @PreUpdate
+    protected void updateTimestamp() {
+        lastUpdated = Instant.now();
+    }
 
 }

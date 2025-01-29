@@ -28,4 +28,16 @@ management:
         include: health, metrics
   endpoint:
     metrics:
-      access: read_only
+      cache:
+        enabled: true
+      access: unrestricted
+
+cache:
+  expire-after-write-minutes: 30
+  maximum-size: 500
+
+otel:
+  metrics:
+    exporter: logging
+  traces:
+    exporter: logging

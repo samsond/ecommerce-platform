@@ -33,3 +33,22 @@ To explore the API endpoints, head over to the Swagger UI:
 
 [Swagger UI](http://localhost:8080/swagger-ui/index.html)
 
+### Metrics
+Spring Boot Actuator provides various endpoints to monitor and manage your application.
+
+To check the cache hit counter:
+
+```bash
+curl http://localhost:8080/actuator/metrics/cache.gets?tag=cache_result:hit
+```
+
+To check the cache miss counter:
+```bash
+curl http://localhost:8080/actuator/metrics/cache.gets?tag=cache_result:miss
+```
+
+To check the product fetch latency:
+```bash
+curl http://localhost:8080/actuator/metrics/product.fetch.latency
+```
+
