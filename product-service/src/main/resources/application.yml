@@ -17,6 +17,14 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true # Useful if starting with an existing database
     sql-migration-prefix: V
+  data:
+    redis:
+      port: ${SPRING_REDIS_PORT:6379}
+      host: ${SPRING_REDIS_HOST:localhost}
+  cache:
+    redis:
+      time-to-live: 30m
+      key-prefix: product-service-
 
 server:
   port: 8080
@@ -31,13 +39,3 @@ management:
       cache:
         enabled: true
       access: unrestricted
-
-cache:
-  expire-after-write-minutes: 30
-  maximum-size: 500
-
-otel:
-  metrics:
-    exporter: logging
-  traces:
-    exporter: logging
