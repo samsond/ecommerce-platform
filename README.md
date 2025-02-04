@@ -45,8 +45,10 @@ curl http://localhost:8080/actuator/metrics/product.fetch.latency
 This project includes monitoring and metrics using Redis, Redis Exporter, Prometheus, and Grafana. Below are the steps to access the various endpoints:  
 #### Redis
 Redis is used as the caching layer. It is accessible on port 6379.  
+
 #### Redis Exporter
-Redis Exporter is used to export Redis metrics to Prometheus. It is accessible on port 9121.  To access Redis Exporter metrics, use the following URL:
+
+Redis Exporter is used to export Redis metrics to Prometheus.
 
 ```browser
 http://localhost:9121/metrics
@@ -54,15 +56,13 @@ http://localhost:9121/metrics
 
 #### Prometheus
 
-Prometheus is used to store and query metrics. It is accessible on port 9090. To access Prometheus, use the following URL:
-
 ```browser
 http://localhost:9090
 ```
 
 #### Grafana
 
-Grafana is used to visualize metrics. It is accessible on port 3000. To access Grafana, use the following URL:
+Visualize metrics at:
 
 ```browser
 http://localhost:3000
